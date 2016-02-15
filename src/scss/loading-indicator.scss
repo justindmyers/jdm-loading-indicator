@@ -1,0 +1,209 @@
+@import "compass/css3";
+
+$loading-indicator-global-color: #fff !default;
+$loading-indicator-global-width: 2px;
+$loading-indicator-global-background: rgba(0, 0, 0, .4) !default;
+$loading-indicator-global-transition: all 0.2s cubic-bezier(0.35, 0, 0.25, 1);
+
+/*
+ * Inline Messages
+ */
+ .jdm-loading-container {
+     position: relative;
+ }
+
+/*
+ * Spinner Styling
+ */
+.jdm-loading__spinner {
+    width: 14px;
+    height: 14px;
+    border: solid 2px transparent;
+    border-top-color: $loading-indicator-global-color;
+    border-left-color: $loading-indicator-global-color;
+    border-radius: 100%;
+
+    @include animation(loading-bar-spinner 500ms linear infinite);
+
+    &.ng-animate {
+        @include animation(none 0s);
+    }
+    
+    @at-root #{&}--global {
+        width: 3rem;
+        height: 3rem;
+        border-width: .15rem;
+    }
+    
+    @at-root #{&}--inline {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -1rem;
+        margin-top: -1rem;
+        width: 2rem;
+        height: 2rem;
+        border-top-color: #666;
+        border-left-color: #666;
+    }
+   
+}
+
+/*
+ * Global and container indicator styling
+ */
+.jdm-loading {
+    align-items: center;
+    background: $loading-indicator-global-background;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+    
+    @at-root #{&}--inline {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        background: rgba(255, 255, 255, .85);
+    }
+    
+    &.ng-enter, &.ng-leave {
+        @include transition($loading-indicator-global-transition);
+    }
+    
+    &.ng-enter, &.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+    
+    &.ng-leave, &.ng-enter.ng-enter-active {
+        opacity: 1;
+    }
+}
+
+/*
+ * Buttons
+ */
+ 
+/*
+    @at-root #{&}__progress {
+        &[value]::-webkit-progress-bar {
+            background-color: #eee;
+            border-radius: 0;
+            @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.25) inset);
+        }
+        
+        &[value]::-webkit-progress-value {
+            background: #53abae;
+            @include opacity(.6);
+        }
+    }
+*/
+
+/*
+.loading-item {
+    @include transition(all 0.2s cubic-bezier(0.35, 0, 0.25, 1));
+    padding-right: 0;
+    
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+    &.ng-leave,
+    &.ng-enter.ng-enter-active {
+        opacity: 1;
+    }
+}
+
+.loading-button {
+    @include transition(all 0.2s cubic-bezier(0.35, 0, 0.25, 1));
+    padding-right: 0;
+
+    i {
+        position: absolute;
+        font-size: 1rem;
+    }
+
+    &.loading-top i {
+        top: 10px;
+        left: 50%;
+        margin-left: -.5rem;
+    }
+
+    &.loading-right i {
+        right: 12px;
+        top: 50%;
+        margin-top: -.5rem;
+    }
+
+    &.loading-left i {
+        left: 12px;
+        top: 50%;
+        margin-top: -.5rem;
+    }
+
+    &.loading-right.loading {
+        padding-right: 36px;
+    }
+
+    &.loading-top.loading {
+        padding-top: 36px;
+    }
+
+    &.loading-left.loading {
+        padding-left: 36px;
+    }    
+}
+*/
+
+/* Inputs */
+/*
+.input-indicator {
+    position: relative;
+    
+    .loading-container {
+        position: absolute;
+        top: 50%;
+        right: .5rem;
+        margin-left: -.5rem;
+        margin-top: -.5rem;
+    }
+
+    .loading-container i {
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        border-top-color: #666;
+        border-left-color: #666;
+    }
+}
+*/
+/* Inline Messages */
+
+
+@-webkit-keyframes loading-bar-spinner {
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-moz-keyframes loading-bar-spinner {
+    0% { -moz-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-o-keyframes loading-bar-spinner {
+    0% { -o-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-ms-keyframes loading-bar-spinner {
+    0% { -ms-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@keyframes loading-bar-spinner {
+    0% { transform: rotate(0deg); transform: rotate(0deg); }
+    100% { transform: rotate(360deg); transform: rotate(360deg); }
+}

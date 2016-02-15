@@ -1,0 +1,16 @@
+body {
+  padding: 0;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.inline-demo {
+    width: 500px;
+    height: 500px;
+    border: 1px solid #999;
+}
