@@ -1,6 +1,6 @@
 {
   "name": "jdmloadingindicator",
-  "private": true,
+  "version": "2.0.0",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.8.0",
