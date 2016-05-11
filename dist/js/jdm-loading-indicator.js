@@ -146,7 +146,7 @@ angular.module('jdm.loadingIndicator', [
         
         // Internal Functions
         function checkResponse(response) {
-            if (response !== undefined && $templateCache.get(response.config.url) === undefined) {
+            if (response !== undefined) {
                 loadingIndicator.setLoadingState(false, response.config);
             }
         }
