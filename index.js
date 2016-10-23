@@ -1,2 +1,2 @@
 require('./dist/js/jdm-loading-indicator');
-module.exports = 'jdmLoadingIndicator';
+module.exports = 'jdm.loadingIndicator';
