@@ -22,6 +22,7 @@ angular.module('jdm.loadingIndicator', [
             controller: LoadingIndicatorButtonController,
             controllerAs: 'loadingIndicatorButton', 
             bindToController: {
+                buttonClasses: '@',
                 referenceId: '@',
                 isLoading: '<',
                 indicatorPosition: '@',
@@ -43,6 +44,7 @@ angular.module('jdm.loadingIndicator', [
 
             loadingIndicator.initDirective(referenceId);
             
+            vm.buttonClasses = vm.buttonClasses || '';
             vm.indicator = loadingIndicator.directives[referenceId];
 
             vm.checkDisabled = function() {                
@@ -57,6 +59,10 @@ angular.module('jdm.loadingIndicator', [
 
             vm.wrapperClasses = function() {
                 var classes = {};
+
+                vm.buttonClasses.split(' ').forEach(function(classname) {
+                    classes[classname] = true;
+                });
 
                 if(vm.isDarkTheme) {
                     classes['jdm-loading-indicator-button--dark'] = true;
