@@ -5,6 +5,10 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.css">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -21,9 +25,16 @@
             <global-loading-indicator></global-loading-indicator>
             <button ng-click="ctrl.toggleIndicatorClick()">Toggle Loading</button>
             
+            <button ng-click="ctrl.ajaxCallClick()">Ajax Call</button>
+            
             <div class="inline-demo" loading-indicator-container>
-                
                 <loading-indicator />
+            </div>
+
+            <div class="button-demo">
+                <loading-indicator-button is-loading="ctrl.showIndicator">Submit</loading-indicator-button>
+
+                <loading-indicator-button is-loading="ctrl.showIndicator" indicator-position="right" disable-on-pending-request="true" reference-id="cart-add" is-dark-theme="true" ng-click="ctrl.addToCart()"><i class="fa fa-shopping-cart"></i> Add to Cart</loading-indicator-button>
             </div>
         </div>
     </div>

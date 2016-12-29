@@ -40,20 +40,15 @@
   border-top-color: #666;
   border-left-color: #666;
 }
+.jdm-loading__spinner--button {
+  border-top-color: #666;
+  border-left-color: #666;
+}
 
 /*
  * Global and container indicator styling
  */
 .jdm-loading {
-  align-items: center;
-  background: rgba(0, 0, 0, 0.4);
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
   z-index: 9999;
 }
 .jdm-loading--inline {
@@ -64,6 +59,25 @@
   bottom: 0;
   z-index: 10;
   background: rgba(255, 255, 255, 0.85);
+}
+.jdm-loading--global {
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.jdm-loading--button {
+  padding-right: 0;
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  margin-top: 1px;
+  z-index: 0;
 }
 .jdm-loading.ng-enter, .jdm-loading.ng-leave {
   -moz-transition: all 0.2s cubic-bezier(0.35, 0, 0.25, 1);
@@ -81,8 +95,59 @@
 /*
  * Buttons
  */
+.jdm-loading-indicator-button {
+  position: relative;
+}
+.jdm-loading-indicator-button .jdm-loading__spinner {
+  position: absolute;
+  width: .75em;
+  height: .75em;
+}
+.jdm-loading-indicator-button.jdm-loading-indicator-button--loading-right i, .jdm-loading-indicator-button.jdm-loading-indicator-button--loading-left i {
+  margin-top: -.375em;
+  top: 50%;
+}
+.jdm-loading-indicator-button.jdm-loading-indicator-button--loading-right .jdm-loading {
+  right: 0;
+}
+.jdm-loading-indicator-button.jdm-loading-indicator-button--loading-right .jdm-loading__spinner {
+  margin-right: -.375em;
+  right: 50%;
+}
+.jdm-loading-indicator-button.jdm-loading-indicator-button--loading-left .jdm-loading {
+  left: 0;
+}
+.jdm-loading-indicator-button.jdm-loading-indicator-button--loading-left .jdm-loading__spinner {
+  margin-left: -.375em;
+  left: 50%;
+}
+.jdm-loading-indicator-button--dark .jdm-loading__spinner {
+  border-top-color: #fff;
+  border-left-color: #fff;
+}
+.jdm-loading-indicator-button--loading.jdm-loading-indicator-button--loading-right .jdm-loading-indicator-button__wrapper {
+  padding-right: 1.2em;
+}
+.jdm-loading-indicator-button--loading.jdm-loading-indicator-button--loading-left .jdm-loading-indicator-button__wrapper {
+  padding-left: 1.2em;
+}
+
+.jdm-loading-indicator-button__content {
+  position: relative;
+}
+
+.jdm-loading-indicator-button__wrapper {
+  -moz-transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+  -o-transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+  -webkit-transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+  display: inline-block;
+  position: relative;
+  padding: 0;
+}
+
 /*
-    @at-root __progress {
+    &__progress {
         &[value]::-webkit-progress-bar {
             background-color: #eee;
             border-radius: 0;
@@ -94,61 +159,6 @@
             @include opacity(.6);
         }
     }
-*/
-/*
-.loading-item {
-    @include transition(all 0.2s cubic-bezier(0.35, 0, 0.25, 1));
-    padding-right: 0;
-    
-    &.ng-enter,
-    &.ng-leave.ng-leave-active {
-        opacity: 0;
-    }
-    &.ng-leave,
-    &.ng-enter.ng-enter-active {
-        opacity: 1;
-    }
-}
-
-.loading-button {
-    @include transition(all 0.2s cubic-bezier(0.35, 0, 0.25, 1));
-    padding-right: 0;
-
-    i {
-        position: absolute;
-        font-size: 1rem;
-    }
-
-    &.loading-top i {
-        top: 10px;
-        left: 50%;
-        margin-left: -.5rem;
-    }
-
-    &.loading-right i {
-        right: 12px;
-        top: 50%;
-        margin-top: -.5rem;
-    }
-
-    &.loading-left i {
-        left: 12px;
-        top: 50%;
-        margin-top: -.5rem;
-    }
-
-    &.loading-right.loading {
-        padding-right: 36px;
-    }
-
-    &.loading-top.loading {
-        padding-top: 36px;
-    }
-
-    &.loading-left.loading {
-        padding-left: 36px;
-    }    
-}
 */
 /* Inputs */
 /*

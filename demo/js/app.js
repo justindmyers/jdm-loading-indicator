@@ -27,15 +27,24 @@ function MainController($http, $rootScope) {
     var vm = this;
     
     vm.showIndicator = false;
-    vm.toggleIndicatorClick = toggleIndicatorClick;
+
+    vm.ajaxCallClick = function() {
+        $http.get('/mockbackend').then(function(data) {
+            console.log(data.data);
+        });
+    }
     
-    function toggleIndicatorClick() {
-        vm.showIndicator = !vm.showIndicator;    
+    vm.toggleIndicatorClick = function() {
+        vm.showIndicator = !vm.showIndicator;
     };
-    /*
-    $http.get('https://www.reddit.com/r/webdev/.json').then(function(data) {
-        console.log(data.data);
-    });*/
+
+    vm.addToCart = function() {
+        $http.get('/mockbackend', {
+            referenceId: 'cart-add'
+        }).then(function(data) {
+            console.log(data.data);
+        });
+    };
     
     for(var x=0; x < 10; x++) {
         $http.get('/mockbackend').then(function(data) {

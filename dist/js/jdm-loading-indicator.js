@@ -2,7 +2,85 @@ angular.module('jdm.loadingIndicator', [
     'ngAnimate',
     'ngAria'
 ]);
- 
+ (function() {
+    'use strict';
+
+    angular
+        .module('jdm.loadingIndicator')
+        .directive('loadingIndicatorButton', LoadingIndicatorButton);
+
+    LoadingIndicatorButton.$inject = ['loadingIndicator'];
+    
+    function LoadingIndicatorButton() {
+        // Usage: <global-loading-indicator></global-loading-indicator>
+        //
+        // Creates:
+        //
+        LoadingIndicatorButtonController.$inject = ["loadingIndicator"];
+        var directive = {
+            restrict: 'E',
+            controller: LoadingIndicatorButtonController,
+            controllerAs: 'loadingIndicatorButton', 
+            bindToController: {
+                referenceId: '@',
+                isLoading: '<',
+                indicatorPosition: '@',
+                disableOnPendingRequest: '@',
+                buttonDisabled: '<',
+                isDarkTheme: '@'
+            },
+            scope: {},
+            transclude: true,
+            templateUrl: 'templates/loading-indicator-button.tpl.html',
+        }; 
+        
+        return directive;
+             
+        /* @ngInject */
+        function LoadingIndicatorButtonController (loadingIndicator) {
+            var vm = this;
+            var referenceId = vm.referenceId || 0;
+
+            loadingIndicator.initDirective(referenceId);
+            
+            vm.indicator = loadingIndicator.directives[referenceId];
+
+            vm.checkDisabled = function() {                
+                if(vm.buttonDisabled) {
+                    return true;
+                }
+                
+                if(vm.indicator.requests.length && vm.disableOnPendingRequest) {
+                    return true;
+                }                       
+            };
+
+            vm.wrapperClasses = function() {
+                var classes = {};
+
+                if(vm.isDarkTheme) {
+                    classes['jdm-loading-indicator-button--dark'] = true;
+                }
+
+                if(vm.indicator.requests.length || vm.isLoading) {
+                    classes['jdm-loading-indicator-button--loading'] = true;
+                }
+
+                if(vm.indicator.requests.length && vm.disableOnPendingRequest || vm.buttonDisabled) {
+                    classes['disabled'] = true;
+                }
+                
+                if(angular.isDefined(vm.indicatorPosition)) {
+                    classes['jdm-loading-indicator-button--loading-' + vm.indicatorPosition] = true;
+                } else {
+                    classes['jdm-loading-indicator-button--loading-' + loadingIndicator.position] = true;
+                }
+                
+                return classes;
+            };
+        }
+    }
+})();
 (function() {
     'use strict';
 
@@ -287,7 +365,7 @@ angular.module('jdm.loadingIndicator', [
 
 
 })();
-angular.module("jdm.loadingIndicator").run(["$templateCache", function($templateCache) {$templateCache.put("templates/loading-indicator-button.tpl.html","<button class=\"loading-container loading-button\" ng-disabled=\"checkDisabled()\" ng-class=\"wrapperClasses()\"> \n    <ng-transclude></ng-transclude>\n    <span class=\"loading-item\" ng-if=\"jdmLoadingService.directives[referenceId].messages.length\"> \n        <i class=\"jdm-loading-spinner\"></i>\n    </span>\n</button>");
-$templateCache.put("templates/loading-indicator-global.tpl.html","<span class=\"jdm-loading\" ng-if=\"loadingIndicator.isLoading || loadingIndicator.indicator.requests.length\">\n    <i class=\"jdm-loading__spinner jdm-loading__spinner--global\"></i> \n</span>");
+angular.module("jdm.loadingIndicator").run(["$templateCache", function($templateCache) {$templateCache.put("templates/loading-indicator-button.tpl.html","<button type=\"button\" class=\"jdm-loading-container jdm-loading-indicator-button\" ng-disabled=\"loadingIndicatorButton.checkDisabled()\" ng-class=\"loadingIndicatorButton.wrapperClasses()\"> \n    <span class=\"jdm-loading-indicator-button__wrapper\">\n        <span class=\"jdm-loading jdm-loading--button\" ng-if=\"loadingIndicatorButton.isLoading || loadingIndicatorButton.indicator.requests.length\"> \n            <i class=\"jdm-loading__spinner jdm-loading__spinner--button\"></i>\n        </span>\n        \n        <span class=\"jdm-loading-indicator-button__content\" ng-transclude></span>\n    </span>\n</button>");
+$templateCache.put("templates/loading-indicator-global.tpl.html","<span class=\"jdm-loading jdm-loading--global\" ng-if=\"loadingIndicator.isLoading || loadingIndicator.indicator.requests.length\">\n    <i class=\"jdm-loading__spinner jdm-loading__spinner--global\"></i> \n</span>");
 $templateCache.put("templates/loading-indicator-inline.tpl.html","<span class=\"jdm-loading jdm-loading--inline\" ng-if=\"loadingIndicator.isLoading || loadingIndicator.indicator.requests.length\">\n    <i class=\"jdm-loading__spinner jdm-loading__spinner--inline\"></i> \n</span>");
-$templateCache.put("templates/loading-indicator-progress.tpl.html","\n<span class=\"loading-container\"> \n     <span class=\"loading-item\"> \n         <progress max=\"{{ jdmLoadingService.directives[referenceId].total }}\" value=\"{{ jdmLoadingService.directives[referenceId].total - jdmLoadingService.directives[referenceId].messages.length }}\"></progress> \n     </span>\n</span>\n");}]);
+$templateCache.put("templates/loading-indicator-progress.tpl.html","<span class=\"loading-container\"> \n     <span class=\"loading-item\"> \n         <progress max=\"{{ jdmLoadingService.directives[referenceId].total }}\" value=\"{{ jdmLoadingService.directives[referenceId].total - jdmLoadingService.directives[referenceId].messages.length }}\"></progress> \n     </span>\n</span>\n");}]);

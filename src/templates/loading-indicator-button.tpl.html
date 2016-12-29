@@ -1,6 +1,9 @@
-<button class="loading-container loading-button" ng-disabled="checkDisabled()" ng-class="wrapperClasses()"> 
-    <ng-transclude></ng-transclude>
-    <span class="loading-item" ng-if="jdmLoadingService.directives[referenceId].messages.length"> 
-        <i class="jdm-loading-spinner"></i>
+<button type="button" class="jdm-loading-container jdm-loading-indicator-button" ng-disabled="loadingIndicatorButton.checkDisabled()" ng-class="loadingIndicatorButton.wrapperClasses()"> 
+    <span class="jdm-loading-indicator-button__wrapper">
+        <span class="jdm-loading jdm-loading--button" ng-if="loadingIndicatorButton.isLoading || loadingIndicatorButton.indicator.requests.length"> 
+            <i class="jdm-loading__spinner jdm-loading__spinner--button"></i>
+        </span>
+        
+        <span class="jdm-loading-indicator-button__content" ng-transclude></span>
     </span>
 </button>
