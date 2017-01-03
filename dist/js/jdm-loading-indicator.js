@@ -237,7 +237,7 @@ angular.module('jdm.loadingIndicator', [
 
         function checkRequest(config) {
             // If the request is a get and the request url is not in $templateCache
-            if (config.method === 'GET') {
+            if (config.method === 'GET' || config.method === 'JSONP') {
                 if ($templateCache.get(config.url) === undefined) {
                     loadingIndicator.setLoadingState(true, config);
                 }
