@@ -299,6 +299,7 @@ angular.module('jdm.loadingIndicator', [
             var service = {
                 directives: {},
                 position: position,
+                threshold: threshold,
                 initDirective: initDirective,
                 addLoadingState: addLoadingState,
                 deleteLoadingState: deleteLoadingState,
