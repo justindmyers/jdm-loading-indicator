@@ -7,7 +7,7 @@
         
     function LoadingIndicatorProvider() {
         var referenceId = 0,
-            threshold = 100,
+            threshold = 250,
             position = 'left';
             
         this.setDefaultReferenceId = function(defaultId) {

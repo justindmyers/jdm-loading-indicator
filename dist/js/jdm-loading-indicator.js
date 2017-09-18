@@ -203,9 +203,11 @@ angular.module('jdm.loadingIndicator', [
         .module('jdm.loadingIndicator')
         .factory('loadingIndicatorInterceptor', LoadingIndicatorInterceptor);
 
-    LoadingIndicatorInterceptor.$inject = ['$q', '$templateCache', 'loadingIndicator', ];
+    LoadingIndicatorInterceptor.$inject = ['$q', '$templateCache', 'loadingIndicator', '$timeout'];
 
-    function LoadingIndicatorInterceptor($q, $templateCache, loadingIndicator) {
+    function LoadingIndicatorInterceptor($q, $templateCache, loadingIndicator, $timeout) {
+        var waitingRequests = [];
+
         return { 
             request: request,
             response: response,
@@ -232,6 +234,12 @@ angular.module('jdm.loadingIndicator', [
         function checkResponse(response) {
             if (response !== undefined) {
                 loadingIndicator.setLoadingState(false, response.config);
+
+                for(var x = waitingRequests.length - 1; x >= 0 ; x--) {
+                    if(waitingRequests[x] === response.config) {
+                        waitingRequests.splice(x, 1);
+                    }
+                }
             }
         }
 
@@ -239,12 +247,24 @@ angular.module('jdm.loadingIndicator', [
             // If the request is a get and the request url is not in $templateCache
             if (config.method === 'GET' || config.method === 'JSONP') {
                 if ($templateCache.get(config.url) === undefined) {
-                    loadingIndicator.setLoadingState(true, config);
+                    waitForThreshold(config);
                 }
             } else {
-                loadingIndicator.setLoadingState(true, config);
+                waitForThreshold(config);
             }
-        }  
+        }
+
+        function waitForThreshold(config) {
+            waitingRequests.push(config);
+
+            $timeout(function() {
+                for(var x = 0; x < waitingRequests.length; x++) {
+                    if(config === waitingRequests[x]) {
+                        loadingIndicator.setLoadingState(true, config);
+                    }
+                }
+            }, loadingIndicator.threshold);
+        }
     }
 })();
 (function() {
@@ -256,7 +276,7 @@ angular.module('jdm.loadingIndicator', [
         
     function LoadingIndicatorProvider() {
         var referenceId = 0,
-            threshold = 100,
+            threshold = 250,
             position = 'left';
             
         this.setDefaultReferenceId = function(defaultId) {
