@@ -103,9 +103,17 @@
                     referenceId: _config.referenceId || referenceId,
                     destroy: function() {
                         deleteLoadingState(data);
+                    },
+                    callTimeout: function() {
+                        // Go ahead and remove the call if it passes a certain timeout
+                        $timeout(function() {
+                            deleteLoadingState(data);
+                        }, 10000);
                     }
                 };
-                                
+
+                data.callTimeout();
+
                 return addLoadingState(data);
             }
             

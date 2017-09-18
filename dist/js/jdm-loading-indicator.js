@@ -352,9 +352,17 @@ angular.module('jdm.loadingIndicator', [
                     referenceId: _config.referenceId || referenceId,
                     destroy: function() {
                         deleteLoadingState(data);
+                    },
+                    callTimeout: function() {
+                        // Go ahead and remove the call if it passes a certain timeout
+                        $timeout(function() {
+                            deleteLoadingState(data);
+                        }, 10000);
                     }
                 };
-                                
+
+                data.callTimeout();
+
                 return addLoadingState(data);
             }
             
@@ -371,7 +379,7 @@ angular.module('jdm.loadingIndicator', [
 
 
 })();
-angular.module("jdm.loadingIndicator").run(["$templateCache", function($templateCache) {$templateCache.put("templates/loading-indicator-button.tpl.html","<button type=\"button\" class=\"jdm-loading-container jdm-loading-indicator-button\" ng-disabled=\"loadingIndicatorButton.checkDisabled()\" ng-class=\"loadingIndicatorButton.wrapperClasses()\"> \n    <span class=\"jdm-loading-indicator-button__wrapper\">\n        <span class=\"jdm-loading jdm-loading--button\" ng-if=\"loadingIndicatorButton.isLoading || loadingIndicatorButton.indicator.requests.length\"> \n            <i class=\"jdm-loading__spinner jdm-loading__spinner--button\"></i>\n        </span>\n        \n        <span class=\"jdm-loading-indicator-button__content\" ng-transclude></span>\n    </span>\n</button>");
-$templateCache.put("templates/loading-indicator-global.tpl.html","<span class=\"jdm-loading jdm-loading--global\" ng-if=\"loadingIndicator.isLoading || loadingIndicator.indicator.requests.length\">\n    <i class=\"jdm-loading__spinner jdm-loading__spinner--global\"></i> \n</span>");
-$templateCache.put("templates/loading-indicator-inline.tpl.html","<span class=\"jdm-loading jdm-loading--inline\" ng-if=\"loadingIndicator.isLoading || loadingIndicator.indicator.requests.length\">\n    <i class=\"jdm-loading__spinner jdm-loading__spinner--inline\"></i> \n</span>");
-$templateCache.put("templates/loading-indicator-progress.tpl.html","<span class=\"loading-container\"> \n     <span class=\"loading-item\"> \n         <progress max=\"{{ jdmLoadingService.directives[referenceId].total }}\" value=\"{{ jdmLoadingService.directives[referenceId].total - jdmLoadingService.directives[referenceId].messages.length }}\"></progress> \n     </span>\n</span>\n");}]);
+angular.module("jdm.loadingIndicator").run(["$templateCache", function($templateCache) {$templateCache.put("templates/loading-indicator-button.tpl.html","<button type=\"button\" class=\"jdm-loading-container jdm-loading-indicator-button\" ng-disabled=\"loadingIndicatorButton.checkDisabled()\" ng-class=\"loadingIndicatorButton.wrapperClasses()\"> \r\n    <span class=\"jdm-loading-indicator-button__wrapper\">\r\n        <span class=\"jdm-loading jdm-loading--button\" ng-if=\"loadingIndicatorButton.isLoading || loadingIndicatorButton.indicator.requests.length\"> \r\n            <i class=\"jdm-loading__spinner jdm-loading__spinner--button\"></i>\r\n        </span>\r\n        \r\n        <span class=\"jdm-loading-indicator-button__content\" ng-transclude></span>\r\n    </span>\r\n</button>");
+$templateCache.put("templates/loading-indicator-global.tpl.html","<span class=\"jdm-loading jdm-loading--global\" ng-if=\"loadingIndicator.isLoading || loadingIndicator.indicator.requests.length\">\r\n    <i class=\"jdm-loading__spinner jdm-loading__spinner--global\"></i> \r\n</span>");
+$templateCache.put("templates/loading-indicator-inline.tpl.html","<span class=\"jdm-loading jdm-loading--inline\" ng-if=\"loadingIndicator.isLoading || loadingIndicator.indicator.requests.length\">\r\n    <i class=\"jdm-loading__spinner jdm-loading__spinner--inline\"></i> \r\n</span>");
+$templateCache.put("templates/loading-indicator-progress.tpl.html","<span class=\"loading-container\"> \r\n     <span class=\"loading-item\"> \r\n         <progress max=\"{{ jdmLoadingService.directives[referenceId].total }}\" value=\"{{ jdmLoadingService.directives[referenceId].total - jdmLoadingService.directives[referenceId].messages.length }}\"></progress> \r\n     </span>\r\n</span>\r\n");}]);
