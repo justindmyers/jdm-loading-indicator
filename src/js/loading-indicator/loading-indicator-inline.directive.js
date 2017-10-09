@@ -30,11 +30,14 @@
         /* @ngInject */
         function LoadingIndicatorController (loadingIndicator) {
             var vm = this;
-            var referenceId = vm.referenceId || 0;
 
-            loadingIndicator.initDirective(referenceId);
-            
-            vm.indicator = loadingIndicator.directives[referenceId];
+            vm.$onInit = function() {
+                var referenceId = vm.referenceId || 0;
+
+                loadingIndicator.initDirective(referenceId);
+
+                vm.indicator = loadingIndicator.directives[referenceId];
+            };
         }
     }
 })();

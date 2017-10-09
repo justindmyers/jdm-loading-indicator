@@ -35,12 +35,15 @@
         /* @ngInject */
         function LoadingIndicatorButtonController (loadingIndicator) {
             var vm = this;
-            var referenceId = vm.referenceId || 0;
 
-            loadingIndicator.initDirective(referenceId);
-            
-            vm.buttonClasses = vm.buttonClasses || '';
-            vm.indicator = loadingIndicator.directives[referenceId];
+            vm.$onInit = function() {
+                var referenceId = vm.referenceId || 0;
+
+                loadingIndicator.initDirective(referenceId);
+
+                vm.buttonClasses = vm.buttonClasses || '';
+                vm.indicator = loadingIndicator.directives[referenceId];
+            };
 
             vm.checkDisabled = function() {                
                 if(vm.buttonDisabled) {

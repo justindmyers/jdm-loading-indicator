@@ -40,12 +40,15 @@ angular.module('jdm.loadingIndicator', [
         /* @ngInject */
         function LoadingIndicatorButtonController (loadingIndicator) {
             var vm = this;
-            var referenceId = vm.referenceId || 0;
 
-            loadingIndicator.initDirective(referenceId);
-            
-            vm.buttonClasses = vm.buttonClasses || '';
-            vm.indicator = loadingIndicator.directives[referenceId];
+            vm.$onInit = function() {
+                var referenceId = vm.referenceId || 0;
+
+                loadingIndicator.initDirective(referenceId);
+
+                vm.buttonClasses = vm.buttonClasses || '';
+                vm.indicator = loadingIndicator.directives[referenceId];
+            };
 
             vm.checkDisabled = function() {                
                 if(vm.buttonDisabled) {
@@ -147,11 +150,14 @@ angular.module('jdm.loadingIndicator', [
         /* @ngInject */
         function LoadingIndicatorController (loadingIndicator) {
             var vm = this;
-            var referenceId = vm.referenceId || 0;
 
-            loadingIndicator.initDirective(referenceId);
-            
-            vm.indicator = loadingIndicator.directives[referenceId];
+            vm.$onInit = function() {
+                var referenceId = vm.referenceId || 0;
+
+                loadingIndicator.initDirective(referenceId);
+
+                vm.indicator = loadingIndicator.directives[referenceId];
+            };
         }
     }
 })();
@@ -188,11 +194,14 @@ angular.module('jdm.loadingIndicator', [
         /* @ngInject */
         function GlobalLoadingIndicatorController (loadingIndicator) {
             var vm = this;
-            var referenceId = vm.referenceId || 0;
 
-            loadingIndicator.initDirective(referenceId);
-            
-            vm.indicator = loadingIndicator.directives[referenceId];
+            vm.$onInit = function() {
+                var referenceId = vm.referenceId || 0;
+
+                loadingIndicator.initDirective(referenceId);
+                
+                vm.indicator = loadingIndicator.directives[referenceId];
+            }
         }
     }
 })();
