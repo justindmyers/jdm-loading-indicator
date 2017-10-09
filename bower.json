@@ -1,6 +1,6 @@
 {
   "name": "jdm-loading-indicator",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "Loading indicator library",
   "main": [
     "./dist/js/jdm-loading-indicator.js",
