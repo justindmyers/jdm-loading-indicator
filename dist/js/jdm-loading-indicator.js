@@ -384,10 +384,10 @@ angular.module('jdm.loadingIndicator', [
                         deleteLoadingState(data);
                     },
                     callTimeout: function() {
-                        // Go ahead and remove the call if it passes a certain timeout
+                        // Go ahead and remove the call if it passes a certain timeout - make it absuredly large
                         $timeout(function() {
                             deleteLoadingState(data);
-                        }, 10000);
+                        }, 99999);
                     }
                 };
 
